@@ -29,3 +29,58 @@ BISO
 ```bash
 pip install YN_EXCHANGE
 ```
+
+# Usage
+
+* Importing the library:
+```py
+import yn_exchange
+```
+
+* Getting the price of a cryptocurrency:
+**IRT** : **Iranian Toman**
+**USD** : **United States Doller**
+
+```py
+ton_price_irt = yn_exchange.TON_COIN_PRICE(currency="IRT")
+ton_price_usd = yn_exchange.TON_COIN_PRICE(currency="USD")
+
+print(f"1 TON = {ton_price_irt} IRT")
+print(f"1 TON = ${ton_price_usd} USD")
+```
+
+* Converting between IRT and USD:
+```py
+irt_to_usd = yn_exchange.calculator(100000, "IRT", "BTC")
+usd_to_irt = yn_exchange.calculator(10, "USD", "ETH")
+
+print(f"100,000 IRT = ${irt_to_usd} USD")
+print(f"$10 USD = {usd_to_irt} IRT")
+```
+
+* Donating to the library developer (optional):
+```py
+yn_exchange.donate()
+```
+
+# functions
+
+```py
+TON_COIN_PRICE()
+BTC_PRICE()
+ETH_PRICE()
+USDT_PRICE()
+SHIB_PRICE()
+BNB_PRICE()
+DOGE_PRICE()
+ADA_PRICE()
+SOL_PRICE()
+XRP_PRICE()
+USDC_PRICE()
+ETC_PRICE()
+PEPE_PRICE()
+ATM_PRICE()
+BISO_PRICE()
+donate()
+calculator()
+```
