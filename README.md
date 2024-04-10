@@ -37,8 +37,8 @@ pip install YN_EXCHANGE
 import yn_exchange
 ```
 
-* Getting the price of a cryptocurrency:
-**IRT** : **Iranian Toman**
+* Getting the price of a cryptocurrency:<br />
+**IRT** : **Iranian Toman**<br />
 **USD** : **United States Doller**
 
 ```py
@@ -63,7 +63,7 @@ print(f"$10 USD = {usd_to_irt} IRT")
 yn_exchange.donate()
 ```
 
-# functions
+# Functions
 
 ```py
 TON_COIN_PRICE()
