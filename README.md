@@ -27,14 +27,14 @@ BISO
 
 # Installation
 ```bash
-pip install YN_EXCHANGE
+pip install YnExchangePY
 ```
 
 # Usage
 
 * Importing the library:
 ```py
-import yn_exchange
+import YN_Exchange.yn_exchange
 ```
 
 * Getting the price of a cryptocurrency:<br />
