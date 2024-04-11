@@ -8,21 +8,21 @@ This Python library provides functionalities to get cryptocurrency prices and pe
 * Convert between IRT and USD for any of the supported cryptocurrencies.
 * Donate to the library developer (optional).
 
-### Supported Cryptocurrencies:
-TON
-BTC
-ETH
-USDT
-SHIB
-BNB
-DOGE
-ADA
-SOL
-XRP
-USDC
-ETC
-PEPE
-ATM
+### Supported Cryptocurrencies:<br />
+TON<br />
+BTC<br />
+ETH<br />
+USDT<br />
+SHIB<br />
+BNB<br />
+DOGE<br />
+ADA<br />
+SOL<br />
+XRP<br />
+USDC<br />
+ETC<br />
+PEPE<br />
+ATM<br />
 BISO
 
 # Installation
