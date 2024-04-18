@@ -1,3 +1,6 @@
+<div align="center">
+  ![Download](https://static.pepy.tech/badge/YnExchangePY)](https://pepy.tech/project/YnExchangePY)
+</div><br/><br/>
 # Documentation
 
 ### Description:
