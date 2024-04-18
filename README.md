@@ -3,6 +3,7 @@
   <img src="https://static.pepy.tech/badge/YnExchangePY/month"><img/>
   <img src="https://static.pepy.tech/badge/YnExchangePY/week"><img/>
 </div><br/><br/>
+
 # Documentation
 
 ### Description:
