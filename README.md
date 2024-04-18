@@ -34,7 +34,7 @@ pip install YnExchangePY
 
 * Importing the library:
 ```py
-import YN_Exchange.yn_exchange
+from YN_Exchange import yn_exchange
 ```
 
 * Getting the price of a cryptocurrency:<br />
@@ -42,8 +42,8 @@ import YN_Exchange.yn_exchange
 **USD** : **United States Doller**
 
 ```py
-ton_price_irt = YN_Exchange.yn_exchange.TON_COIN_PRICE(currency="IRT")
-ton_price_usd = YN_Exchange.yn_exchange.TON_COIN_PRICE(currency="USD")
+ton_price_irt = yn_exchange.TON_COIN_PRICE(currency="IRT")
+ton_price_usd = yn_exchange.TON_COIN_PRICE(currency="USD")
 
 print(f"1 TON = {ton_price_irt} IRT")
 print(f"1 TON = ${ton_price_usd} USD")
@@ -51,8 +51,8 @@ print(f"1 TON = ${ton_price_usd} USD")
 
 * Converting between IRT and USD:
 ```py
-irt_to_usd = YN_Exchange.yn_exchange.calculator(100000, "IRT", "BTC")
-usd_to_irt = YN_Exchange.yn_exchange.calculator(10, "USD", "ETH")
+irt_to_usd = yn_exchange.calculator(100000, "IRT", "BTC")
+usd_to_irt = yn_exchange.calculator(10, "USD", "ETH")
 
 print(f"100,000 IRT = ${irt_to_usd} USD")
 print(f"$10 USD = {usd_to_irt} IRT")
