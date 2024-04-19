@@ -74,3 +74,8 @@ If the function encounters an error, such as an invalid currency or a network is
 # Additional notes
 ### Here are some ways you can contribute to the YN_Exchange project:
 * **Donate:** If you've found my library to be useful, I would greatly appreciate it if you would consider making a donation. Your donation will help me to continue to develop and maintain the library, and to add new features in the future.
+
+**Donate function**
+```python
+yn_exchange.donate()
+```
