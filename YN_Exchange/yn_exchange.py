@@ -1,8 +1,8 @@
 #----------------<info>-----------
 # Developed by : Yasha Najafi
-# Developer github : https://github.com/yn9019
-# Developer info page : https://yn9019.github.io/about_me
-# Module version : 1.0.0
+# Developer github : https://github.com/YashaNajafi
+# Developer info page : https://YashaNajafi.github.io/about_me
+# Module version : 2.5.2
 # Module name : YN_EXCHANGE
 # Number of supported crypto : 15
 # Reference : https://ok-ex.io/
@@ -11,8 +11,17 @@
 import requests
 from bs4 import BeautifulSoup
 #----------------<functions>----------
+    #-------------------<grouping>--------
+def SEPARATION_OF_NUMBERS(number=int()):
+    n_str = str(number)
+    result = ""
+    while len(n_str) > 0:
+        group = n_str[-3:]  
+        result = group + "," + result 
+        n_str = n_str[:-3]
+    return result[:-1]
     #----------------<ton function>----------
-def TON_COIN_PRICE(currency:str):
+def TON_COIN_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/TON/"
         response = requests.get(url)
@@ -21,20 +30,26 @@ def TON_COIN_PRICE(currency:str):
         ton_price=element.text
         ton_price=ton_price.replace(",","")
         ton_price=int(ton_price)
-        return ton_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(ton_price)
+        else:
+            return ton_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/TON/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         ton_price=element.text
-        ton_price=ton_price.replace("$","")
+        ton_price=ton_price.replace("$ ","")
         ton_price=float(ton_price)
-        return ton_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(ton_price)
+        else:
+            return ton_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<btc function>----------
-def BTC_PRICE(currency:str):
+def BTC_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/BTC/"
         response = requests.get(url)
@@ -43,20 +58,26 @@ def BTC_PRICE(currency:str):
         btc_price=element.text
         btc_price=btc_price.replace(",","")
         btc_price=int(btc_price)
-        return btc_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(btc_price)
+        else:
+            return btc_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/BTC/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         btc_price=element.text
-        btc_price=btc_price.replace("$","")
+        btc_price=btc_price.replace("$ ","")
         btc_price=float(btc_price)
-        return btc_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(btc_price)
+        else:
+            return btc_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<eth funtion>----------
-def ETH_PRICE(currency:str):
+def ETH_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/ETH/"
         response = requests.get(url)
@@ -65,20 +86,26 @@ def ETH_PRICE(currency:str):
         eth_price=element.text
         eth_price=eth_price.replace(",","")
         eth_price=int(eth_price)
-        return eth_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(eth_price)
+        else:
+            return eth_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/ETH/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         eth_price=element.text
-        eth_price=eth_price.replace("$","")
+        eth_price=eth_price.replace("$ ","")
         eth_price=float(eth_price)
-        return eth_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(eth_price)
+        else:
+            return eth_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<usdt function>----------
-def USDT_PRICE(currency:str):
+def USDT_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/USDT/"
         response = requests.get(url)
@@ -87,20 +114,26 @@ def USDT_PRICE(currency:str):
         usdt_price=element.text
         usdt_price=usdt_price.replace(",","")
         usdt_price=int(usdt_price)
-        return usdt_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(usdt_price)
+        else:
+            return usdt_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/USDT/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         usdt_price=element.text
-        usdt_price=usdt_price.replace("$","")
+        usdt_price=usdt_price.replace("$ ","")
         usdt_price=float(usdt_price)
-        return usdt_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(usdt_price)
+        else:
+            return usdt_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<shib function>----------
-def SHIB_PRICE(currency:str):
+def SHIB_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/SHIB/"
         response = requests.get(url)
@@ -109,20 +142,26 @@ def SHIB_PRICE(currency:str):
         shib_price=element.text
         shib_price=shib_price.replace(",","")
         shib_price=int(shib_price)
-        return shib_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(shib_price)
+        else:
+            return shib_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/SHIB/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         shib_price=element.text
-        shib_price=shib_price.replace("$","")
+        shib_price=shib_price.replace("$ ","")
         shib_price=float(shib_price)
-        return shib_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(shib_price)
+        else:
+            return shib_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<bnb function>----------
-def BNB_PRICE(currency:str):
+def BNB_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/BNB/"
         response = requests.get(url)
@@ -131,20 +170,26 @@ def BNB_PRICE(currency:str):
         bnb_price=element.text
         bnb_price=bnb_price.replace(",","")
         bnb_price=int(bnb_price)
-        return bnb_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(bnb_price)
+        else:
+            return bnb_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/BNB/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         bnb_price=element.text
-        bnb_price=bnb_price.replace("$","")
+        bnb_price=bnb_price.replace("$ ","")
         bnb_price=float(bnb_price)
-        return bnb_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(bnb_price)
+        else:
+            return bnb_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<doge function>----------
-def DOGE_PRICE(currency:str):
+def DOGE_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/DOGE/"
         response = requests.get(url)
@@ -153,20 +198,26 @@ def DOGE_PRICE(currency:str):
         doge_price=element.text
         doge_price=doge_price.replace(",","")
         doge_price=int(doge_price)
-        return doge_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(doge_price)
+        else:
+            return doge_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/DOGE/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         doge_price=element.text
-        doge_price=doge_price.replace("$","")
+        doge_price=doge_price.replace("$ ","")
         doge_price=float(doge_price)
-        return doge_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(doge_price)
+        else:
+            return doge_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<ada function>----------
-def ADA_PRICE(currency:str):
+def ADA_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/ADA/"
         response = requests.get(url)
@@ -175,20 +226,26 @@ def ADA_PRICE(currency:str):
         ada_price=element.text
         ada_price=ada_price.replace(",","")
         ada_price=int(ada_price)
-        return ada_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(ada_price)
+        else:
+            return ada_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/ADA/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         ada_price=element.text
-        ada_price=ada_price.replace("$","")
+        ada_price=ada_price.replace("$ ","")
         ada_price=float(ada_price)
-        return ada_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(ada_price)
+        else:
+            return ada_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<sol function>----------
-def SOL_PRICE(currency:str):
+def SOL_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/SOL/"
         response = requests.get(url)
@@ -197,20 +254,26 @@ def SOL_PRICE(currency:str):
         sol_price=element.text
         sol_price=sol_price.replace(",","")
         sol_price=int(sol_price)
-        return sol_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(sol_price)
+        else:
+            return sol_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/SOL/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         sol_price=element.text
-        sol_price=sol_price.replace("$","")
+        sol_price=sol_price.replace("$ ","")
         sol_price=float(sol_price)
-        return sol_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(sol_price)
+        else:
+            return sol_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<xrp function>----------
-def XRP_PRICE(currency:str):
+def XRP_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/XRP/"
         response = requests.get(url)
@@ -219,20 +282,26 @@ def XRP_PRICE(currency:str):
         xrp_price=element.text
         xrp_price=xrp_price.replace(",","")
         xrp_price=int(xrp_price)
-        return xrp_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(xrp_price)
+        else:
+            return xrp_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/XRP/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         xrp_price=element.text
-        xrp_price=xrp_price.replace("$","")
+        xrp_price=xrp_price.replace("$ ","")
         xrp_price=float(xrp_price)
-        return xrp_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(xrp_price)
+        else:
+            return xrp_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<usdc function>----------
-def USDC_PRICE(currency:str):
+def USDC_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/USDC/"
         response = requests.get(url)
@@ -241,20 +310,26 @@ def USDC_PRICE(currency:str):
         usdc_price=element.text
         usdc_price=usdc_price.replace(",","")
         usdc_price=int(usdc_price)
-        return usdc_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(usdc_price)
+        else:
+            return usdc_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/USDC/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         usdc_price=element.text
-        usdc_price=usdc_price.replace("$","")
+        usdc_price=usdc_price.replace("$ ","")
         usdc_price=float(usdc_price)
-        return usdc_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(usdc_price)
+        else:
+            return usdc_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<etc function>----------
-def ETC_PRICE(currency:str):
+def ETC_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/ETC/"
         response = requests.get(url)
@@ -263,20 +338,26 @@ def ETC_PRICE(currency:str):
         etc_price=element.text
         etc_price=etc_price.replace(",","")
         etc_price=int(etc_price)
-        return etc_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(etc_price)
+        else:
+            return etc_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/ETC/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         etc_price=element.text
-        etc_price=etc_price.replace("$","")
+        etc_price=etc_price.replace("$ ","")
         etc_price=float(etc_price)
-        return etc_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(etc_price)
+        else:
+            return etc_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<pepe function>----------
-def PEPE_PRICE(currency:str):
+def PEPE_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/PEPE/"
         response = requests.get(url)
@@ -285,20 +366,26 @@ def PEPE_PRICE(currency:str):
         pepe_price=element.text
         pepe_price=pepe_price.replace(",","")
         pepe_price=int(pepe_price)
-        return pepe_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(pepe_price)
+        else:
+            return pepe_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/PEPE/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         pepe_price=element.text
-        pepe_price=pepe_price.replace("$","")
+        pepe_price=pepe_price.replace("$ ","")
         pepe_price=float(pepe_price)
-        return pepe_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(pepe_price)
+        else:
+            return pepe_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<atm function>----------
-def ATM_PRICE(currency:str):
+def ATM_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/ATM/"
         response = requests.get(url)
@@ -307,20 +394,26 @@ def ATM_PRICE(currency:str):
         atm_price=element.text
         atm_price=atm_price.replace(",","")
         atm_price=int(atm_price)
-        return atm_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(atm_price)
+        else:
+            return atm_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/ATM/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         atm_price=element.text
-        atm_price=atm_price.replace("$","")
+        atm_price=atm_price.replace("$ ","")
         atm_price=float(atm_price)
-        return atm_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(atm_price)
+        else:
+            return atm_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
     #----------------<biso function>----------
-def BISO_PRICE(currency:str):
+def BISO_PRICE(currency:str,grouping=False):
     if currency=="IRT":
         url = "https://ok-ex.io/buy-and-sell/BISO/"
         response = requests.get(url)
@@ -329,16 +422,22 @@ def BISO_PRICE(currency:str):
         biso_price=element.text
         biso_price=biso_price.replace(",","")
         biso_price=int(biso_price)
-        return biso_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(biso_price)
+        else:
+            return biso_price
     elif currency=="USD":
         url = "https://ok-ex.io/buy-and-sell/BISO/"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
         element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
         biso_price=element.text
-        biso_price=biso_price.replace("$","")
+        biso_price=biso_price.replace("$ ","")
         biso_price=float(biso_price)
-        return biso_price
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(biso_price)
+        else:
+            return biso_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
 #-------------------<main functions>-------------
