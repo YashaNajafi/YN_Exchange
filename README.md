@@ -35,58 +35,39 @@ BISO
 ```bash
 pip install YnExchangePY
 ```
-
-# Usage
-
-* Importing the library:
-```py
+# Functionality
+The library provides functions for retrieving the price of 15 cryptocurrencies. Each function takes two arguments:<br/>
+* currency (str): This argument specifies the desired currency (either "IRT" or "USD").
+* grouping (bool, optional): This argument is optional (defaults to False). If set to True, the function will format the price with comma separators for readability.<br/><br/>
+**Here's a list of all the available functions:**
+* ```yn_exchange.TON_PRICE(currency, grouping=False)```
+* ```yn_exchange.BTC_PRICE(currency, grouping=False)```
+* ```yn_exchange.ETH_PRICE(currency, grouping=False)```
+* ```yn_exchange.USDT_PRICE(currency, grouping=False)```
+* ```yn_exchange.SHIB_PRICE(currency, grouping=False)```
+* ```yn_exchange.BNB_PRICE(currency, grouping=False)```
+* ```yn_exchange.DOGE_PRICE(currency, grouping=False)```
+* ```yn_exchange.ADA_PRICE(currency, grouping=False)```
+* ```yn_exchange.SOL_PRICE(currency, grouping=False)```
+* ```yn_exchange.XRP_PRICE(currency, grouping=False)```
+* ```yn_exchange.USDC_PRICE(currency, grouping=False)```
+* ```yn_exchange.ETC_PRICE(currency, grouping=False)```
+* ```yn_exchange.PEPE_PRICE(currency, grouping=False)```
+* ```yn_exchange.ATM_PRICE(currency, grouping=False)```
+# Example Usage
+```python
 from YN_Exchange import yn_exchange
+
+# Get Bitcoin price in USD with comma separators
+bitcoin_usd_price = yn_exchange.BTC_PRICE("USD", grouping=True)
+print(f"Bitcoin price in USD: ${bitcoin_usd_price}")
+
+# Get Ethereum price in IRT
+ethereum_irt_price = yn_exchange.ETH_PRICE("IRT")
+print(f"Ethereum price in IRT: {ethereum_irt_price}")
 ```
-
-* Getting the price of a cryptocurrency:<br />
-**IRT** : **Iranian Toman**<br />
-**USD** : **United States Doller**
-
-```py
-ton_price_irt = yn_exchange.TON_COIN_PRICE(currency="IRT")
-ton_price_usd = yn_exchange.TON_COIN_PRICE(currency="USD")
-
-print(f"1 TON = {ton_price_irt} IRT")
-print(f"1 TON = ${ton_price_usd} USD")
-```
-
-* Converting between IRT and USD:
-```py
-irt_to_usd = yn_exchange.calculator(100000, "IRT", "BTC")
-usd_to_irt = yn_exchange.calculator(10, "USD", "ETH")
-
-print(f"100,000 IRT = ${irt_to_usd} USD")
-print(f"$10 USD = {usd_to_irt} IRT")
-```
-
-* Donating to the library developer (optional):
-```py
-yn_exchange.donate()
-```
-
-# Functions
-
-```py
-TON_COIN_PRICE()
-BTC_PRICE()
-ETH_PRICE()
-USDT_PRICE()
-SHIB_PRICE()
-BNB_PRICE()
-DOGE_PRICE()
-ADA_PRICE()
-SOL_PRICE()
-XRP_PRICE()
-USDC_PRICE()
-ETC_PRICE()
-PEPE_PRICE()
-ATM_PRICE()
-BISO_PRICE()
-donate()
-calculator()
-```
+# Error Handling
+If the function encounters an error, such as an invalid currency or a network issue, it will raise a ```ValueError``` exception. You can handle this exception using a try-except block.
+# Limitations
+* The library relies on scraping data from a website, which may be subject to changes or become unavailable.
+* The library only supports a limited number of cryptocurrencies (currently 15).
