@@ -2,10 +2,10 @@
 # Developed by : Yasha Najafi
 # Developer github : https://github.com/YashaNajafi
 # Developer info page : https://YashaNajafi.github.io/about_me
-# Module version : 2.5.2
+# Module version : 3.0.0
 # Module name : YN_EXCHANGE
-# Number of supported crypto : 15
-# Reference : https://ok-ex.io/
+# Number of supported crypto : 16
+# References : https://ok-ex.io/ | https://www.tgju.org/ | https://www.xe.com/
 
 #----------------<libs>----------
 import requests
@@ -16,9 +16,9 @@ def SEPARATION_OF_NUMBERS(number=int()):
     n_str = str(number)
     result = ""
     while len(n_str) > 0:
-        group = n_str[-3:]  
-        result = group + "," + result 
-        n_str = n_str[:-3]
+        group = n_str[-3:]  # 3 رقم آخر را جدا کنید
+        result = group + "," + result  # گروه را با کاما به رشته نتیجه اضافه کنید
+        n_str = n_str[:-3]  # 3 رقم آخر را از رشته اصلی حذف کنید
     return result[:-1]
     #----------------<ton function>----------
 def TON_COIN_PRICE(currency:str,grouping=False):
@@ -440,6 +440,34 @@ def BISO_PRICE(currency:str,grouping=False):
             return biso_price
     else:
         raise ValueError(f"Currency does not have a value with the name <{currency}>")
+    #---------------<trx function>--------
+def TRX_PRICE(currency:str,grouping=False):
+    if currency=="IRT":
+        url = "https://ok-ex.io/buy-and-sell/TRX/"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("div", class_="text-gray-500 lg:text-3xl text-lg")
+        trx_price=element.text
+        trx_price=trx_price.replace(",","")
+        trx_price=int(trx_price)
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(trx_price)
+        else:
+            return trx_price
+    elif currency=="USD":
+        url = "https://ok-ex.io/buy-and-sell/TRX/"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10")
+        trx_price=element.text
+        trx_price=trx_price.replace("$ ","")
+        trx_price=float(trx_price)
+        if grouping==True:
+            return SEPARATION_OF_NUMBERS(trx_price)
+        else:
+            return trx_price
+    else:
+        raise ValueError(f"Currency does not have a value with the name <{currency}>")
 #-------------------<main functions>-------------
 def donate():
     print("0xE95FAEc8B847F18B3bC5dc1bB8256fb376d2e459\n\nTo donate, you can deposit the desired amount of usdt to the above wallet :)")
@@ -505,5 +533,205 @@ def calculator(value:float,currency:str,crypto:str):
         return value*BISO_PRICE(currency="IRT")
     elif currency=="USD" and crypto=="BISO":
         return value*BISO_PRICE(currency="USD")
+    elif currency=="IRT" and crypto=="TRX":
+        return value*TRX_PRICE(currency="IRT")
+    elif currency=="USD" and crypto=="TRX":
+        return value*TRX_PRICE(currency="USD")
     else:
         raise ValueError("This values not supported! try again")
+
+#------------------<gold functions>----------
+
+#      !this function only irt prices!
+def GOLD_PRICE(carat:int,mass="gram"):
+    if carat==18:
+        url = "https://www.tgju.org/profile/geram18"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+        gold_price=element.text
+        gold_price=gold_price.replace(",","")
+        gold_price=int(gold_price)
+        gold_price=gold_price//10
+        if mass=="gram":
+            return gold_price
+        elif mass=="kilo":
+            return gold_price*1000
+        else:
+            raise ValueError(f"Mass does not have a value with the name <{mass}>")
+    elif carat==24:
+        url = "https://www.tgju.org/profile/geram24"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+        gold_price=element.text
+        gold_price=gold_price.replace(",","")
+        gold_price=int(gold_price)
+        gold_price=gold_price//10
+        if mass=="gram":
+            return gold_price
+        elif mass=="kilo":
+            return gold_price*1000
+        else:
+           raise ValueError(f"Mass does not have a value with the name <{mass}>")
+    else:
+        raise ValueError(f"Carat does not have a value with the name <{carat}>")
+
+#      !this function only usd prices!
+def GOLD_OUNCE_PRICE():
+    url = "https://www.tgju.org/profile/ons"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+    gold_price=element.text
+    if "," in gold_price:
+        gold_price=gold_price.replace(",","")
+    gold_price=float(gold_price)
+    return gold_price
+
+#      !this function only usd prices!
+def SILVER_OUNCE_PRICE():
+    url = "https://www.tgju.org/profile/silver"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+    gold_price=element.text
+    if "," in gold_price:
+        gold_price=gold_price.replace(",","")
+    gold_price=float(gold_price)
+    return gold_price
+
+#      !this function only usd prices!
+def PLATINUM_OUNCE_PRICE():
+    url = "https://www.tgju.org/profile/platinum"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+    gold_price=element.text
+    if "," in gold_price:
+        gold_price=gold_price.replace(",","")
+    gold_price=float(gold_price)
+    return gold_price
+
+#      !this function only usd prices!
+def PALLADIUM_OUNCE_PRICE():
+    url = "https://www.tgju.org/profile/palladium"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+    gold_price=element.text
+    if "," in gold_price:
+        gold_price=gold_price.replace(",","")
+    gold_price=float(gold_price)
+    return gold_price
+
+#-------------<currency functions>-----------
+
+#      !this function only irt prices!
+def USD():
+    url = "https://www.tgju.org/profile/price_dollar_rl"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+    usd_price=element.text
+    if "," in usd_price:
+        usd_price=usd_price.replace(",","")
+    usd_price=int(usd_price)
+    usd_price=usd_price//10
+    return usd_price
+
+def EUR(currency:str):
+    if currency=="IRT":
+        url = "https://www.tgju.org/profile/price_eur"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+        eur_price=element.text
+        if "," in eur_price:
+            eur_price=eur_price.replace(",","")
+        eur_price=int(eur_price)
+        eur_price=eur_price//10
+        return eur_price
+    elif currency=="USD":
+        url = "https://www.xe.com/currencyconverter/convert/?Amount=1&From=EUR&To=USD"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("p", {'class': 'sc-1c293993-1 fxoXHw'})
+        eur_price=element.text
+        eur_price=eur_price.replace(" US Dollars","")
+        eur_price=float(eur_price)
+        return eur_price
+    else:
+        raise ValueError(f"Currency does not have a value with the name <{currency}>")
+
+def AED(currency:str):
+    if currency=="IRT":
+        url = "https://www.tgju.org/profile/price_aed"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+        aed_price=element.text
+        if "," in aed_price:
+            aed_price=aed_price.replace(",","")
+        aed_price=int(aed_price)
+        aed_price=aed_price//10
+        return aed_price
+    elif currency=="USD":
+        url = "https://www.xe.com/currencyconverter/convert/?Amount=1&From=AED&To=USD"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("p", {'class': 'sc-1c293993-1 fxoXHw'})
+        aed_price=element.text
+        aed_price=aed_price.replace(" US Dollars","")
+        aed_price=float(aed_price)
+        return aed_price
+    else:
+        raise ValueError(f"Currency does not have a value with the name <{currency}>")
+
+def GBP(currency:str):
+    if currency=="IRT":
+        url = "https://www.tgju.org/profile/price_gbp"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+        gbp_price=element.text
+        if "," in gbp_price:
+            gbp_price=gbp_price.replace(",","")
+        gbp_price=int(gbp_price)
+        gbp_price=gbp_price//10
+        return gbp_price
+    elif currency=="USD":
+        url = "https://www.xe.com/currencyconverter/convert/?Amount=1&From=GBP&To=USD"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("p", {'class': 'sc-1c293993-1 fxoXHw'})
+        gbp_price=element.text
+        gbp_price=gbp_price.replace(" US Dollars","")
+        gbp_price=float(gbp_price)
+        return gbp_price
+    else:
+        raise ValueError(f"Currency does not have a value with the name <{currency}>")
+
+def TRY(currency:str):
+    if currency=="IRT":
+        url = "https://www.tgju.org/profile/price_try"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("span", {'data-col': 'info.last_trade.PDrCotVal'})
+        try_price=element.text
+        if "," in try_price:
+            try_price=try_price.replace(",","")
+        try_price=int(try_price)
+        try_price=try_price//10
+        return try_price
+    elif currency=="USD":
+        url = "https://www.xe.com/currencyconverter/convert/?Amount=1&From=TRY&To=USD"
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, "html.parser")
+        element = soup.find("p", {'class': 'sc-1c293993-1 fxoXHw'})
+        try_price=element.text
+        try_price=try_price.replace(" US Dollars","")
+        try_price=float(try_price)
+        return try_price
+    else:
+        raise ValueError(f"Currency does not have a value with the name <{currency}>")
