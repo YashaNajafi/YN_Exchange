@@ -29,7 +29,8 @@ USDC<br />
 ETC<br />
 PEPE<br />
 ATM<br />
-BISO
+BISO<br />
+TRX
 
 # Installation
 ```bash
@@ -65,6 +66,7 @@ The library provides functions for retrieving the price of 15 cryptocurrencies. 
 * ```yn_exchange.GBP(currency)```
 * ```yn_exchange.TRY(currency)```
 # Example Usage
+### Get crypto live prices:
 ```python
 from YN_Exchange import yn_exchange
 
@@ -75,6 +77,61 @@ print(f"Bitcoin price in USD: ${bitcoin_usd_price}")
 # Get Ethereum price in IRT
 ethereum_irt_price = yn_exchange.ETH_PRICE("IRT")
 print(f"Ethereum price in IRT: {ethereum_irt_price}")
+```
+### Get gold price (Only IRT currency):
+```py
+from YN_Exchange import yn_exchange
+
+# Get 18k ct gold with gram:
+18k_gold=yn_exchange.GOLD_PRICE(carat=18,mass="gram") # You can give "kilo" parameter to mass to calculate kilograms
+print(18k_gold)
+
+# Get 24k ct gold with gram:
+24k_gold=yn_exchange.GOLD_PRICE(carat=24,mass="gram") # You can give "kilo" parameter to mass to calculate kilograms
+print(24k_gold)
+```
+### Get price of ounce metals (Only USD currency):
+```py
+from YN_Exchange import yn_exchange
+
+# Get ounce of gold:
+gold_ounce=yn_exchange.GOLD_OUNCE_PRICE()
+print(gold_ounce)
+
+# Get ounce of sliver:
+silver_ounce=yn_exchange.SILVER_OUNCE_PRICE()
+print(silver_ounce)
+
+# Get ounce of platinum:
+platinum_ounce=yn_exchange.PLATINUM_OUNCE_PRICE()
+print(platinum_ounce)
+
+# Get ounce of palladium:
+palladium_ounce=yn_exchange.PALLADIUM_OUNCE_PRICE()
+print(palladium_ounce)
+```
+### Get currency prices:
+```py
+from YN_Exchange import yn_exchange
+
+# Get USD(united state dollar) price (Only IRT):
+usd_price=yn_exchange.USD()
+print(usd_prices)
+
+# Get EUR(europe euro) price:
+eur_price=yn_exchange.EUR(currency="USD") # You can use "IRT" parameter instead of "USD" parameter
+print(eur_price)
+
+# Get AED(arab emirates dirham) price:
+aed_price=yn_exchange.aed(currency="USD") # You can use "IRT" parameter instead of "USD" parameter
+print(aed_price)
+
+# Get GBP(great britain pound) price:
+gbp_price=yn_exchange.GBP(currency="USD") # You can use "IRT" parameter instead of "USD" parameter
+print(gbp_price)
+
+# Get TRY(turkish lira) price:
+try_price=yn_exchange.TRY(currency="USD) # You can use "IRT" parameter instead of "USD" parameter
 ```
 # Error Handling
 If the function encounters an error, such as an invalid currency or a network issue, it will raise a ```ValueError``` exception. You can handle this exception using a try-except block.
