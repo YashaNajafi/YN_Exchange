@@ -54,6 +54,16 @@ The library provides functions for retrieving the price of 15 cryptocurrencies. 
 * ```yn_exchange.ETC_PRICE(currency, grouping=False)```
 * ```yn_exchange.PEPE_PRICE(currency, grouping=False)```
 * ```yn_exchange.ATM_PRICE(currency, grouping=False)```
+* ```yn_exchange.GOLD_PRICE(carat,mass)```
+* ```yn_exchange.GOLD_OUNCE_PRICE()```
+* ```yn_exchange.SILVER_OUNCE_PRICE```
+* ```yn_exchange.PLATINUM_OUNCE_PRICE```
+* ```yn_exchange.PALLADIUM_OUNCE_PRICE```
+* ```yn_exchange.USD()```
+* ```yn_exchange.EUR(currency)```
+* ```yn_exchange.AED(currency)```
+* ```yn_exchange.GBP(currency)```
+* ```yn_exchange.TRY(currency)```
 # Example Usage
 ```python
 from YN_Exchange import yn_exchange
