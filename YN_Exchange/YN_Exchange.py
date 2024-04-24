@@ -2,7 +2,7 @@
 # Developed by : Yasha Najafi
 # Developer github : https://github.com/YashaNajafi
 # Developer info page : https://YashaNajafi.github.io/about_me
-# Module version : 3.0.0
+# Module version : 3.2.5
 # Module name : YN_EXCHANGE
 # Number of supported crypto : 16
 # References : https://ok-ex.io/ | https://www.tgju.org/ | https://www.xe.com/
