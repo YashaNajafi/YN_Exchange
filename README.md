@@ -7,7 +7,7 @@
 # Documentation
 
 ### Description:
-This Python library provides functionalities to get cryptocurrency prices and perform conversions between Iranian Toman (IRT) and USD, for 15 supported cryptocurrencies.
+This Python library provides functionalities to get cryptocurrency prices and perform conversions between Iranian Toman (IRT) and USD, for 16 supported cryptocurrencies.
 
 ### Key Features:
 * Get the current price of various cryptocurrencies in IRT or USD.
@@ -37,7 +37,7 @@ TRX
 pip install YnExchangePY
 ```
 # Functionality
-The library provides functions for retrieving the price of 15 cryptocurrencies. Each function takes two arguments:<br/>
+The library provides functions for retrieving the price of 16 cryptocurrencies. Each function takes two arguments:<br/>
 * currency (str): This argument specifies the desired currency (either "IRT" or "USD").
 * grouping (bool, optional): This argument is optional (defaults to False). If set to True, the function will format the price with comma separators for readability.<br/><br/>
 **Here's a list of all the available functions:**
