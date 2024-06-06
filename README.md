@@ -7,75 +7,44 @@
 # Documentation
 
 ### Description:
-This Python library provides functionalities to get cryptocurrency prices and perform conversions between Iranian Toman (IRT) and USD, for 16 supported cryptocurrencies.
+This Python library provides functionalities to get cryptocurrency prices and perform conversions between Iranian Toman (IRT) and USD, for all supported cryptocurrencies.
 
 ### Key Features:
 * Get the current price of various cryptocurrencies in IRT or USD.
 * Convert between IRT and USD for any of the supported cryptocurrencies.
+* Get country currencies price
+* Get chart of crypto prices
 * Donate to the library developer (optional).
-
-### Supported Cryptocurrencies:<br />
-TON<br />
-BTC<br />
-ETH<br />
-USDT<br />
-SHIB<br />
-BNB<br />
-DOGE<br />
-ADA<br />
-SOL<br />
-XRP<br />
-USDC<br />
-ETC<br />
-PEPE<br />
-ATM<br />
-BISO<br />
-TRX
 
 # Installation
 ```bash
 pip install YnExchangePY
 ```
 # Functionality
-The library provides functions for retrieving the price of 16 cryptocurrencies. Each function takes two arguments:<br/>
+The library provides functions for retrieving the price of all cryptocurrencies. Each function takes 3 arguments:<br/>
 * currency (str): This argument specifies the desired currency (either "IRT" or "USD").
-* grouping (bool, optional): This argument is optional (defaults to False). If set to True, the function will format the price with comma separators for readability.<br/><br/>
+* grouping (bool, optional): This argument is optional (defaults to False). If set to True, the function will format the price with comma separators for readability.
+* crypto_name (str) : This argument is for the name of the desired crypto to get its price<br/><br/>
 **Here's a list of all the available functions:**
-* ```YN_Exchange.TON_PRICE(currency, grouping=False)```
-* ```YN_Exchange.BTC_PRICE(currency, grouping=False)```
-* ```YN_Exchange.ETH_PRICE(currency, grouping=False)```
-* ```YN_Exchange.USDT_PRICE(currency, grouping=False)```
-* ```YN_Exchange.SHIB_PRICE(currency, grouping=False)```
-* ```YN_Exchange.BNB_PRICE(currency, grouping=False)```
-* ```YN_Exchange.DOGE_PRICE(currency, grouping=False)```
-* ```YN_Exchange.ADA_PRICE(currency, grouping=False)```
-* ```YN_Exchange.SOL_PRICE(currency, grouping=False)```
-* ```YN_Exchange.XRP_PRICE(currency, grouping=False)```
-* ```YN_Exchange.USDC_PRICE(currency, grouping=False)```
-* ```YN_Exchange.ETC_PRICE(currency, grouping=False)```
-* ```YN_Exchange.PEPE_PRICE(currency, grouping=False)```
-* ```YN_Exchange.ATM_PRICE(currency, grouping=False)```
-* ```YN_Exchange.GOLD_PRICE(carat,mass)```
-* ```YN_Exchange.GOLD_OUNCE_PRICE()```
-* ```YN_Exchange.SILVER_OUNCE_PRICE```
-* ```YN_Exchange.PLATINUM_OUNCE_PRICE```
-* ```YN_Exchange.PALLADIUM_OUNCE_PRICE```
-* ```YN_Exchange.USD()```
-* ```YN_Exchange.EUR(currency)```
-* ```YN_Exchange.AED(currency)```
-* ```YN_Exchange.GBP(currency)```
-* ```YN_Exchange.TRY(currency)```
+* ```YN_Exchange.CRYPTO_PRICES(crypto_name : str,currency:str,grouping : bool = False)```
+* ```YN_Exchange.GOLD_PRICE(carat : int,mass : str="gram")```
+* ```YN_Exchange.CURRENCY_PRICE(currency : str,price_currency : str = "IRT")```
+* ```YN_Exchange.USD_PRICE()```
+* ```YN_Exchange.CRYPTO_CHART(crypto : str,timeout : int=5,currency : str="usdt")```
+* ```YN_Exchange.calculator(value:float,currency:str,crypto:str,grouping : bool=False)```
+* ```YN_Exchange.DONATE()```
+
 # Example Usage
 ### Get crypto live prices:
 ```python
 import YN_Exchange
 
-# Get Bitcoin price in USD with comma separators
-bitcoin_usd_price = YN_Exchange.BTC_PRICE("USD", grouping=True)
+# Get Bitcoin price in USD with grouping
+bitcoin_usd_price = YN_Exchange.CRYPTO_PRICES(crypto_name="BTC",currency="USD",grouping=True)
 print(f"Bitcoin price in USD: ${bitcoin_usd_price}")
 
-# Get Ethereum price in IRT
-ethereum_irt_price = YN_Exchange.ETH_PRICE("IRT")
+# Get Ethereum price in IRT(no grouping)
+ethereum_irt_price = YN_Exchange.CRYPTO_PRICES(crypto_name="ETH",currency="IRT")
 print(f"Ethereum price in IRT: {ethereum_irt_price}")
 ```
 ### Get gold price (Only IRT currency):
@@ -91,58 +60,43 @@ print(18k_gold)
 print(24k_gold)
 ```
 ### Get price of ounce metals (Only USD currency):
-```py
-import YN_Exchange
-
-# Get ounce of gold:
-gold_ounce=YN_Exchange.GOLD_OUNCE_PRICE()
-print(gold_ounce)
-
-# Get ounce of sliver:
-silver_ounce=YN_Exchange.SILVER_OUNCE_PRICE()
-print(silver_ounce)
-
-# Get ounce of platinum:
-platinum_ounce=YN_Exchange.PLATINUM_OUNCE_PRICE()
-print(platinum_ounce)
-
-# Get ounce of palladium:
-palladium_ounce=YN_Exchange.PALLADIUM_OUNCE_PRICE()
-print(palladium_ounce)
-```
+This method is being updated
 ### Get currency prices:
 ```py
 import YN_Exchange
 
 # Get USD(united state dollar) price (Only IRT):
-usd_price=YN_Exchange.USD()
+usd_price=YN_Exchange.USD_PRICE()
 print(usd_prices)
 
 # Get EUR(europe euro) price:
-eur_price=YN_Exchange.EUR(currency="USD") # You can use "IRT" parameter instead of "USD" parameter
+eur_price=YN_Exchange.CURRENCY_PRICE(currency="EUR",price_currency="USD") # You can use "IRT" parameter instead of "USD" parameter
 print(eur_price)
-
-# Get AED(arab emirates dirham) price:
-aed_price=YN_Exchange.aed(currency="USD") # You can use "IRT" parameter instead of "USD" parameter
-print(aed_price)
-
-# Get GBP(great britain pound) price:
-gbp_price=YN_Exchange.GBP(currency="USD") # You can use "IRT" parameter instead of "USD" parameter
-print(gbp_price)
-
-# Get TRY(turkish lira) price:
-try_price=YN_Exchange.TRY(currency="USD) # You can use "IRT" parameter instead of "USD" parameter
 ```
+The USD function is separated from the main function due to differences
+### Get chart of crypto prices:
+```py
+import YN_Exchange
+
+#Get bitcoin price chart
+YN_Exchange.CRYPTO_CHART(crypto="BTC,timeout=7,currency="USDT") # USDT currency : USD
+```
+* After executing this method, a file named "{your crypto} chart.png" will be created.
+* Some cryptocurrencies do not have a table with USD currency, so you have to use IRT currency.
+* If there is a problem in displaying the table, it will be displayed in the photo.
+* The "timeout" argument is the amount of time the page takes to load.
+* If you have a weak internet, set the "timeout" argument to a number above 7
+
 # Error Handling
 If the function encounters an error, such as an invalid currency or a network issue, it will raise a ```ValueError``` exception. You can handle this exception using a try-except block.
 # Limitations
 * The library relies on scraping data from a website, which may be subject to changes or become unavailable.
-* The library only supports a limited number of cryptocurrencies (currently 16).
+* The library only supports a limited number of cryptocurrencies.
 # Additional notes
 ### Here are some ways you can contribute to the YN_Exchange project:
 * **Donate:** If you've found my library to be useful, I would greatly appreciate it if you would consider making a donation. Your donation will help me to continue to develop and maintain the library, and to add new features in the future.
 
 **Donate function**
 ```python
-yn_exchange.donate()
+YN_Exchange.DONATE()
 ```
