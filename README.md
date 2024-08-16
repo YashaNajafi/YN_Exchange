@@ -80,7 +80,7 @@ The USD function is separated from the main function due to differences
 import YN_Exchange
 
 #Get bitcoin price chart
-YN_Exchange.CRYPTO_CHART(crypto="BTC,timeout=7,currency="USD")
+YN_Exchange.CRYPTO_CHART(crypto="BTC",timeout=7,currency="USD")
 ```
 * After executing this method, a file named "{your crypto} chart.png" will be created.
 * Some cryptocurrencies do not have a table with USD currency, so you have to use IRT currency.
