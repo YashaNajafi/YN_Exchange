@@ -2,7 +2,7 @@
 # Developed by : Yasha Najafi
 # Developer github : https://github.com/YashaNajafi
 # Developer info page : https://YashaNajafi.github.io/about_me
-# Module version : 4.2.0
+# Module version : 5.0.0
 # Module name : YN_EXCHANGE
 # Number of supported crypto : ***
 # References : https://ok-ex.io/ | https://www.tgju.org/ | https://www.xe.com/
@@ -12,6 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
+import os
 #----------------<functions>----------
     #-------------------<grouping>--------
 def SEPARATION_OF_NUMBERS(number):
@@ -26,6 +27,8 @@ def CRYPTO_PRICES(crypto_name : str,currency:str,grouping : bool = False):
     irt_price=irt_price.replace(",","")
     irt_price=irt_price.replace("\n","")
     usd_price=usd_price.replace("$ ","")
+    usd_price=usd_price.replace("\n","")
+    usd_price=usd_price.replace(",","")
     if currency == "IRT":
         price = irt_price
     elif currency == "USD":
@@ -103,21 +106,37 @@ def USD_PRICE():        #this function only for irt price
     usd_price=usd_price//10
     return usd_price
 #------------<chart>----------
-def CRYPTO_CHART(crypto : str,timeout : int=5,currency : str="usdt"):
-    driver = webdriver.Chrome()
+def CRYPTO_CHART(crypto : str,timeout : int=5,currency : str="usd"):
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    options.add_argument('window-size=1920x1080')
+    options.add_argument("disable-gpu")
+
+    if currency=="usd" or "USD": currency="usdt"
+    driver = webdriver.Chrome(options=options)
     driver.get(f"https://ok-ex.io/trade/chart/{currency.lower()}?coin={crypto.lower()}&prov=2&interval&hasVolume=false&isFullScreen=true&fullscreenButton=false")
     time.sleep(timeout)
     driver.save_screenshot(f"{crypto.upper()} Chart.png")
     driver.quit()
-    return "SAVED!"
-#--------<calculator>--------
-def calculator(value:float,currency:str,crypto:str,grouping : bool=False):
-    if grouping:
-        return value*CRYPTO_PRICES(currency=currency,crypto_name=crypto)
-    elif grouping==False:
-        return SEPARATION_OF_NUMBERS(value*CRYPTO_PRICES(currency=currency,crypto_name=crypto))
+    os.system("cls")
+    print("SAVED!")
+#--------<calculators>--------
+def CALCULATOR(value:float,currency:str,crypto:str,grouping : bool=False,calculat_mode : str = "CV2C",other_crypto : str = None):
+    if calculat_mode=="CryptoValue2Currency" or calculat_mode=="CV2C":
+        response = value*CRYPTO_PRICES(crypto_name=crypto,currency=currency)
+    elif calculat_mode=="CryptoValue2OtherCrypto" or calculat_mode=="CV2OC" and other_crypto==None:
+        raise ValueError("Please enter other_crypto!")
+    elif calculat_mode=="CryptoValue2OtherCrypto" or calculat_mode=="CV2OC":
+        response = value*CRYPTO_PRICES(crypto_name=crypto,currency="USD")
+        response = response/CRYPTO_PRICES(crypto_name=other_crypto,currency="USD")
     else:
-        raise ValueError(f"Grouping not value : {grouping}")
+        raise ValueError(f"calculat_mode does not have a value named {calculat_mode}")
+
+    if grouping:
+        return SEPARATION_OF_NUMBERS(response)
+    else:
+        return response
+
 #--------<donate>--------
 def DONATE():
-    return "UQCZgyJ4XB7c1GMnLgefqcc-zOA98hyOlMLZpO0EsCNxBq-e\n\n\nTON WALLET"
+    return "UQCZgyJ4XB7c1GMnLgefqcc-zOA98hyOlMLZpO0EsCNxBq-e\n\n\nTON WALLET!"
