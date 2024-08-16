@@ -14,6 +14,7 @@ This Python library provides functionalities to get cryptocurrency prices and pe
 * Convert between IRT and USD for any of the supported cryptocurrencies.
 * Get country currencies price
 * Get chart of crypto prices
+* Smart crypto calculator
 * Donate to the library developer (optional).
 
 # Installation
@@ -30,8 +31,8 @@ The library provides functions for retrieving the price of all cryptocurrencies.
 * ```YN_Exchange.GOLD_PRICE(carat : int,mass : str="gram")```
 * ```YN_Exchange.CURRENCY_PRICE(currency : str,price_currency : str = "IRT")```
 * ```YN_Exchange.USD_PRICE()```
-* ```YN_Exchange.CRYPTO_CHART(crypto : str,timeout : int=5,currency : str="usdt")```
-* ```YN_Exchange.calculator(value:float,currency:str,crypto:str,grouping : bool=False)```
+* ```YN_Exchange.CRYPTO_CHART(crypto : str,timeout : int=5,currency : str="usd")```
+* ```YN_Exchange.CALCULATOR(value:float,currency:str,crypto:str,grouping : bool=False,calculat_mode : str="CV2C",other_crypto : str = None)```
 * ```YN_Exchange.DONATE()```
 
 # Example Usage
@@ -48,7 +49,7 @@ ethereum_irt_price = YN_Exchange.CRYPTO_PRICES(crypto_name="ETH",currency="IRT")
 print(f"Ethereum price in IRT: {ethereum_irt_price}")
 ```
 ### Get gold price (Only IRT currency):
-```py
+```python
 import YN_Exchange
 
 # Get 18k ct gold with gram:
@@ -62,7 +63,7 @@ print(_24k_gold)
 ### Get price of ounce metals (Only USD currency):
 This method is being updated
 ### Get currency prices:
-```py
+```python
 import YN_Exchange
 
 # Get USD(united state dollar) price (Only IRT):
@@ -75,18 +76,30 @@ print(eur_price)
 ```
 The USD function is separated from the main function due to differences
 ### Get chart of crypto prices:
-```py
+```python
 import YN_Exchange
 
 #Get bitcoin price chart
-YN_Exchange.CRYPTO_CHART(crypto="BTC,timeout=7,currency="USDT") # USDT currency : USD
+YN_Exchange.CRYPTO_CHART(crypto="BTC,timeout=7,currency="USD")
 ```
 * After executing this method, a file named "{your crypto} chart.png" will be created.
 * Some cryptocurrencies do not have a table with USD currency, so you have to use IRT currency.
 * If there is a problem in displaying the table, it will be displayed in the photo.
 * The "timeout" argument is the amount of time the page takes to load.
 * If you have a weak internet, set the "timeout" argument to a number above 7
+* After completing the operation, the message "SAVED!" It will be printed
+### Crypto calculator
+```python
+import YN_Exchange
 
+# Converting an amount of a crypto to the total price
+print(CALCULATOR(value=10,currency="USD",crypto="USDT",grouping=False,calculat_mode="CV2C"))
+
+# Converting an amount from one crypto to another
+print(CALCULATOR(value=10,currency="USD",crypto="USDT",grouping=False,calculat_mode="CV2OC",other_crypto="TON"))
+```
+* calculat_mode : An argument related to the type of calculation ( CV2C : Crypto Value To Currency | CV2OC : Crypto Value To Other Crypto )
+* other_crypto : An argument that is only for "CV2OC" mode to perform the calculation
 # Error Handling
 If the function encounters an error, such as an invalid currency or a network issue, it will raise a ```ValueError``` exception. You can handle this exception using a try-except block.
 # Limitations
