@@ -2,7 +2,7 @@
 # Developed by : Yasha Najafi
 # Developer github : https://github.com/YashaNajafi
 # Developer info page : https://YashaNajafi.github.io/about_me
-# Module version : 5.0.0
+# Module version : 5.0.2
 # Module name : YN_EXCHANGE
 # Number of supported crypto : ***
 # References : https://ok-ex.io/ | https://www.tgju.org/ | https://www.xe.com/
@@ -23,7 +23,7 @@ def CRYPTO_PRICES(crypto_name : str,currency:str,grouping : bool = False):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     irt_price = soup.find("div", class_="text-gray-500 lg:text-3xl text-lg").text
-    usd_price = soup.find("div", class_="text-neutral-400 text-base leading-8 whitespace-nowrap mt-4 lg:ml-10").text
+    usd_price = soup.find("div", class_="text-neutral-400 lg:text-2xl text-lg leading-8 whitespace-nowrap mt-0 lg:mt-2 ml-4 lg:ml-5 ltr").text
     irt_price=irt_price.replace(",","")
     irt_price=irt_price.replace("\n","")
     usd_price=usd_price.replace("$ ","")
@@ -40,7 +40,7 @@ def CRYPTO_PRICES(crypto_name : str,currency:str,grouping : bool = False):
     else:
         return float(price)
 #----------<gold>------------
-def GOLD_PRICE(carat : int,mass : str="gram"):
+def GOLD_PRICE(carat : int,mass : str="gram",grouping : bool = False):
     _18k_url="https://www.tgju.org/profile/geram18"
     _24k_url="https://www.tgju.org/profile/geram24"
 
@@ -59,8 +59,12 @@ def GOLD_PRICE(carat : int,mass : str="gram"):
     gold_price=gold_price//10
 
     if mass=="gram":
+        if grouping:
+            return SEPARATION_OF_NUMBERS(gold_price)
         return gold_price
     elif mass=="kilo":
+        if grouping:
+            return SEPARATION_OF_NUMBERS(gold_price*1000)
         return gold_price*1000
     else:
         raise ValueError(f"Mass does not have a value with the name <{mass}>")
