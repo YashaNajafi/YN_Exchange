@@ -57,7 +57,7 @@ _18k_gold=YN_Exchange.GOLD_PRICE(carat=18,mass="gram") # You can give "kilo" par
 print(_18k_gold)
 
 # Get 24k ct gold with gram:
-_24k_gold=YN_Exchange.GOLD_PRICE(carat=24,mass="gram") # You can give "kilo" parameter to mass to calculate kilograms
+_24k_gold=YN_Exchange.GOLD_PRICE(carat=24,mass="gram",grouping=True) # You can give "kilo" parameter to mass to calculate kilograms
 print(_24k_gold)
 ```
 ### Get price of ounce metals (Only USD currency):
