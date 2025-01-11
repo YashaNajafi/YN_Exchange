@@ -1,115 +1,253 @@
+# YN Exchange
+<br>
 <div align="center">
   <img src="https://static.pepy.tech/badge/YnExchangePY"><img/>
   <img src="https://static.pepy.tech/badge/YnExchangePY/month"><img/>
   <img src="https://static.pepy.tech/badge/YnExchangePY/week"><img/>
-</div><br/><br/>
+</div>
 
 # Documentation
 
 ### Description:
-This Python library provides functionalities to get cryptocurrency prices and perform conversions between Iranian Toman (IRT) and USD, for all supported cryptocurrencies.
+This Python library provides functionalities to get cryptoCurrency prices and perform conversions between Iranian Toman (IRT) and USD, for all supported cryptocurrencies.
 
 ### Key Features:
-* Get the current price of various cryptocurrencies in IRT or USD.
-* Convert between IRT and USD for any of the supported cryptocurrencies.
-* Get country currencies price
-* Get chart of crypto prices
-* Smart crypto calculator
-* Donate to the library developer (optional).
+* Real-time cryptoCurrency price data retrieval .
+* Support for multiple exchanges .
+* Perform conversions between USD, IRT, and supported cryptocurrencies.
+* Get the current price of metals ( Gold , Copper , Silver and ... ) .
+* Get the current price of natural resources ( oil , gas and ... ) .
+* Generate cryptoCurrency tables (requires `kaleido` library for table rendering).
+* Asynchronous data fetching .
+* Customizable data formats .
+* Save data to cache .
+* Smart calculator
 
-# Installation
+<hr>
+
+### Installation:
+- Install the library using pip:
 ```bash
 pip install YnExchangePY
 ```
-# Functionality
-The library provides functions for retrieving the price of all cryptocurrencies. Each function takes 3 arguments:<br/>
-* currency (str): This argument specifies the desired currency (either "IRT" or "USD").
-* grouping (bool, optional): This argument is optional (defaults to False). If set to True, the function will format the price with comma separators for readability.
-* crypto_name (str) : This argument is for the name of the desired crypto to get its price<br/><br/>
-**Here's a list of all the available functions:**
-* ```YN_Exchange.CRYPTO_PRICES(crypto_name : str,currency:str,grouping : bool = False)```
-* ```YN_Exchange.GOLD_PRICE(carat : int,mass : str="gram")```
-* ```YN_Exchange.CURRENCY_PRICE(currency : str,price_currency : str = "IRT")```
-* ```YN_Exchange.USD_PRICE()```
-* ```YN_Exchange.CRYPTO_CHART(crypto : str,timeout : int=5,currency : str="usd")```
-* ```YN_Exchange.CALCULATOR(value:float,currency:str,crypto:str,grouping : bool=False,calculat_mode : str="CV2C",other_crypto : str = None)```
-* ```YN_Exchange.DONATE()```
 
-# Example Usage
-### Get crypto live prices:
-```python
-import YN_Exchange
-
-# Get Bitcoin price in USD with grouping
-bitcoin_usd_price = YN_Exchange.CRYPTO_PRICES(crypto_name="BTC",currency="USD",grouping=True)
-print(f"Bitcoin price in USD: ${bitcoin_usd_price}")
-
-# Get Ethereum price in IRT(no grouping)
-ethereum_irt_price = YN_Exchange.CRYPTO_PRICES(crypto_name="ETH",currency="IRT")
-print(f"Ethereum price in IRT: {ethereum_irt_price}")
+### Dependencies
+- Required: `kaleido` library for generating crypto tables ( Images )
+```bash
+pip install kaleido
 ```
-### Get gold price (Only IRT currency):
+
+<hr>
+
+# Usage ( Normal Version )
+
+## Crypto Section :
+
+- <b> Get Crypto Price : </b>
+
 ```python
-import YN_Exchange
+# Import to your project :
+from YN_Exchange import Exchange
 
-# Get 18k ct gold with gram:
-_18k_gold=YN_Exchange.GOLD_PRICE(carat=18,mass="gram") # You can give "kilo" parameter to mass to calculate kilograms
-print(_18k_gold)
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+ExchangeOBJ = Exchange.CryptoManager(Cache = True , Cache_Duration = 300) # Make object of CryptoManager
 
-# Get 24k ct gold with gram:
-_24k_gold=YN_Exchange.GOLD_PRICE(carat=24,mass="gram",grouping=True) # You can give "kilo" parameter to mass to calculate kilograms
-print(_24k_gold)
+# "Currency" Argument supported Currency is : USD , IRT ( Default : USD )
+# "Grouping" It is set to "False" by default
+# Grouping ( False ) Output : 96000
+# Grouping ( True ) Output : 96,000
+BTC_Price = ExchangeOBJ.GetCryptoPrice(CryptoName = "BTC",Currency = "USD",Grouping = True) # Get crypto price
 ```
-### Get price of ounce metals (Only USD currency):
-This method is being updated
-### Get currency prices:
+
+<b> If the Cache is active, the information is received and displayed from the Cache until the Cache_Duration expires, and after the Cache expires, the information is received from the server again and stored in the Cache. </b>
+
+<hr>
+
+- <b>Generate Crypto Charts :</b>
+
+### Examples :
+
+<img src="https://s8.uupload.ir/files/ton-usdt_chart_f0oo.jpg" width="300px"> <img src="https://s8.uupload.ir/files/ton-usdt_chart_7aod.jpg" width="500px">
+
+<hr>
+
+### Example usage :
+
 ```python
-import YN_Exchange
+# Import to your project :
+from YN_Exchange import Exchange
 
-# Get USD(united state dollar) price (Only IRT):
-usd_price=YN_Exchange.USD_PRICE()
-print(usd_prices)
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+# Cache not active for charts
+ExchangeOBJ = Exchange.CryptoManager(Cache = True , Cache_Duration = 300) # Make object of CryptoManager
 
-# Get EUR(europe euro) price:
-eur_price=YN_Exchange.CURRENCY_PRICE(currency="EUR",price_currency="USD") # You can use "IRT" parameter instead of "USD" parameter
-print(eur_price)
+# Generate chart
+# For save chart as image definitely install kaleido
+# You can edit argument for edit your chart for example, if you set the histogram argument to "False", the histograms will be removed from the chart.
+ExchangeOBJ.GenerateCryptoChart(CryptoSymbol = "TON/USDT)
 ```
-The USD function is separated from the main function due to differences
-### Get chart of crypto prices:
+
+<b>You can edit argument for edit your chart for example, if you set the histogram argument to "False", the histograms will be removed from the chart.<b>
+<br>
+<b> For save chart as image definitely install kaleido ( [Click](#installation) ) </b>
+
+### Charts Argument :
+- ```ImageSave : bool = True```
+- ```HTML_Save : bool = False```
+- ```Json_Save : bool = False```
+- ```ChartTemplate : str = "Professional"```
+- ```Exchange : str = "binance"```
+- ```CryptoSymbol : str = "BTC/USDT"```
+- ```Limit : int = 100```
+- ```Timeframe = '1d'```
+- ```IchimokuLine : bool = True```
+- ```IchimokuCloud : bool = True```
+- ```Candlesticks : bool = True```
+- ```Chikou : bool = True```
+- ```Tenkan : bool = True```
+- ```Kijun : bool = True```
+- ```MACD_Line : bool = True```
+- ```SignalLine : bool = True```
+- ```Histogram : bool = True```
+
+<b>You can customize your charts with arguments</b>
+
+<hr>
+
+## Metal Section :
+- <b> Get Price : </b>
 ```python
-import YN_Exchange
+# Import to your project :
+from YN_Exchange import Exchange
 
-#Get bitcoin price chart
-YN_Exchange.CRYPTO_CHART(crypto="BTC",timeout=7,currency="USD")
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+MetalsOBJ = Exchange.MetalManager(Cache = True , Cache_Duration = 300) # Make object of MetalManager
+
+GoldPrice = MetalsOBJ.GetGoldPrice(Carat=24,Grouping=True)
 ```
-* After executing this method, a file named "{your crypto} chart.png" will be created.
-* Some cryptocurrencies do not have a table with USD currency, so you have to use IRT currency.
-* If there is a problem in displaying the table, it will be displayed in the photo.
-* The "timeout" argument is the amount of time the page takes to load.
-* If you have a weak internet, set the "timeout" argument to a number above 7
-* After completing the operation, the message "SAVED!" It will be printed
-### Crypto calculator
+<b>You will see the rest of the functions of this class</b>
+<br>
+
+### Functionality :
+- ```GetPlatinumPrice(Grouping : bool = "False")``` Ounce per USD
+- ```GetSilverPrice(Grouping : bool = "False")``` Ounce per USD
+- ```GetPalladiumPrice(Grouping : bool = "False")``` Ounce per USD
+- ```GetTinPrice(Grouping : bool = "False")``` Tonne per USD
+- ```GetZincPrice(Grouping : bool = "False")``` Tonne per USD
+- ```GetNickelPrice(Grouping : bool = "False")``` Tonne per USD
+- ```GetLeadPrice(Grouping : bool = "False")``` Tonne per USD
+- ```GetCopperPrice(Grouping : bool = "False")``` Pound per USD
+- ```GetAluminiumPrice(Grouping : bool = "False")``` Tonne per USD
+- ```GetGoldPrice(Grouping : bool = "False",carat : int = 18,weight : str = "gram")``` Weight : [kilo,gram,ounce] and Only IRT Price
+
+<hr>
+
+## Natural Resources Section :
+- <b> Get Price : </b>
 ```python
-import YN_Exchange
+# Import to your project :
+from YN_Exchange import Exchange
 
-# Converting an amount of a crypto to the total price
-print(CALCULATOR(value=10,currency="USD",crypto="USDT",grouping=False,calculat_mode="CV2C"))
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+NaturalOBJ = Exchange.NaturalResourcesManager(Cache = True , Cache_Duration = 300) # Make object of NaturalResourcesManager
 
-# Converting an amount from one crypto to another
-print(CALCULATOR(value=10,currency="USD",crypto="USDT",grouping=False,calculat_mode="CV2OC",other_crypto="TON"))
+BrentOil = NaturalOBJ.GetBrentOil(Grouping = True)
+OilWTI = NaturalOBJ.GetCrudeOilWTI(Grouping = True)
+NaturalGas = NaturalOBJ.GetNaturalGas(Grouping = True)
 ```
-* calculat_mode : An argument related to the type of calculation ( CV2C : Crypto Value To Currency | CV2OC : Crypto Value To Other Crypto )
-* other_crypto : An argument that is only for "CV2OC" mode to perform the calculation
-# Error Handling
-If the function encounters an error, such as an invalid currency or a network issue, it will raise a ```ValueError``` exception. You can handle this exception using a try-except block.
-# Limitations
-* The library relies on scraping data from a website, which may be subject to changes or become unavailable.
-* The library only supports a limited number of cryptocurrencies.
-# Additional notes
-### Here are some ways you can contribute to the YN_Exchange project:
-* **Donate:** If you've found my library to be useful, I would greatly appreciate it if you would consider making a donation. Your donation will help me to continue to develop and maintain the library, and to add new features in the future.
 
-**Donate function**
+### Functionality :
+- ```GetCrudeOilWTI``` Barrel per USD
+- ```GetBrentOil``` Barrel per USD
+- ```GetNaturalGas``` Mmbtu per USD
+
+<hr>
+
+## Calculator Section :
+<b>You can use this functions in ```Calculator()``` class<b>
+<br>
+- <b>Example usage code : </b>
 ```python
-YN_Exchange.DONATE()
+# Import to your project :
+from YN_Exchange import Exchange
+
+CalculatorOBJ = Exchange.Calculator() # Make object of Calculator
+
+Result = CalculatorOBJ.CryptoValue2Currency(CryptoName="BTC",Currency="USD",Grouping = True)
 ```
+
+
+### Functionality :
+- ```CryptoValue2Currency(Value: int, CryptoName: str = "BTC", Currency: str = "USD", Grouping: bool = False)```
+- ```Currency2CryptoValue(Value: int, CryptoName: str = "BTC", Currency: str = "USD", Grouping: bool = False)```
+- ```CryptoValue2CryptoValue(CryptoValue: int, CryptoName1: str = "BTC", CryptoName2: str = "ETH", Grouping: bool = False)```
+- ```CryptoValue2GoldWeight(GoldCarat: int = 18, GoldWeight: str = "gram", CryptoName: str = "BTC")```
+- ```GoldWeight2CryptoValue(GoldCarat: int = 18, GoldWeight: str = "gram", GoldValue: int = 1, CryptoName: str = "BTC")```
+- ```GoldWeight2Currency(GoldCarat: int = 18, GoldWeight: str = "gram", GoldValue: int = 1, Currency: str = "USD")```
+- ```Currency2GoldWeight(GoldCarat: int = 18, GoldWeight: str = "gram", CurrencyValue : int = 5000000)```
+
+
+<hr>
+
+## Exchanges API Section :
+
+<b>A class to receive digital currency information from APIs of world's most prestigious exchanges</b>
+<br>
+- <b> Example usage code : </b>
+```python
+# Import to your project :
+from YN_Exchange import Exchange
+
+ExchangeOBJ = Exchange.ExchangeAPI(Exchange = "binance") # Make object of ExchangeAPI
+
+BTC = ExchangeOBJ.GetCryptoData(CryptoSymbol = "BTC/USDT")
+```
+- <b>Output</b>
+```json
+{'symbol': 'BTC/USDT', 'timestamp': 1736598300337, 'datetime': '2025-01-11T12:25:00.337Z', 'high': 95836.0, 'low': 92206.02, 'bid': 94613.99, 'bidVolume': 5.67459, 'ask': 94614.0, 'askVolume': 0.35323, 'vwap': 94125.84165815, 'open': 94805.6, 'close': 94614.0, 'last': 94614.0, 'previousClose': 94805.6, 'change': -191.6, 'percentage': -0.202, 'average': 94709.8, 'baseVolume': 25125.20063, 'quoteVolume': 2364930656.128506, 'markPrice': None, 'indexPrice': None, 'info': {'symbol': 'BTCUSDT', 'priceChange': '-191.60000000', 'priceChangePercent': '-0.202', 'weightedAvgPrice': '94125.84165815', 'prevClosePrice': '94805.60000000', 'lastPrice': '94614.00000000', 'lastQty': '0.03192000', 'bidPrice': '94613.99000000', 'bidQty': '5.67459000', 'askPrice': '94614.00000000', 'askQty': '0.35323000', 'openPrice': '94805.60000000', 'highPrice': '95836.00000000', 'lowPrice': '92206.02000000', 'volume': '25125.20063000', 'quoteVolume': '2364930656.12850630', 'openTime': '1736511900337', 'closeTime': '1736598300337', 'firstId': '4392795366', 'lastId': '4396948127', 'count': '4152762'}}
+```
+<hr>
+
+## Cache Section :
+<b>All the classes in the library have the "clear_cache" function, which you can use to clear the cache of that class.</b>
+<br>
+<b>Caches are saved as json files on your computer</b>
+
+<hr>
+
+# Usage ( Async Version ) :
+<b>For usage Async version you must import</b> ```AsyncExchange``` <b>module</b>
+<br>
+<b>And for usage you can use</b> ```asyncio.run()``` <b>function</b>
+<br>
+
+- <b>Example Usage :</b>
+```python
+# Import to your project :
+from YN_Exchange import AsyncExchange
+import asyncio
+
+# The use of all async functions is the same as the main functions :
+ExchangeOBJ = AsyncExchange.AsyncCryptoManager(Cache = True , Cache_Duration = 300)
+
+CryptoPrice = asyncio.run(ExchangeOBJ.GetCryptoPrice(CryptoName = "BTC",Currency = "USD",Grouping = True))
+```
+<br>
+
+<b>To use functions, you can easily use them by adding the word "async" to the first of the main functions.</b>
+
+<hr>
+
+# Donation
+- <b>TON , USDT Wallet ( Tonkeeper ) : </b> <br>
+``` UQCZgyJ4XB7c1GMnLgefqcc-zOA98hyOlMLZpO0EsCNxBq-e ```
+- <b>BTC Wallet : </b> <br>
+``` bc1qpgzy8hpklpp0zwan5ha4lfzavvtjf286w0tlzc ```
+- <b>ETH Wallet : </b> <br>
+```0xE95FAEc8B847F18B3bC5dc1bB8256fb376d2e459```
+- <b>TRX Wallet : </b> <br>
+```TG8MpYtysGngjK7tPdCATLqLJKwm5vbfYi```
