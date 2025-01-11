@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import codecs
 import os
 
-VERSION = '5.0.2'
+VERSION = '6.0.0'
 here = os.path.abspath(os.path.dirname(__file__))
 
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
@@ -18,6 +18,6 @@ setup(
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
-    install_requires=['requests', 'bs4','selenium','chromedriver'],
-    keywords=['python', 'crypto', 'prices', 'crypto calculations', 'api', 'calculations'],
+    install_requires=['typing', 'bs4','plotly','logging','matplotlib','mplfinance','ccxt','ccxt','pandas',"urllib3","asyncio","aiohttp"],
+    keywords=['python', 'crypto', 'prices', 'crypto calculations', 'api', 'calculations',"metal"],
 )
