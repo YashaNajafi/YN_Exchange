@@ -1,10 +1,10 @@
 # YN Exchange
 <br>
 <div align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue">
   <img src="https://static.pepy.tech/badge/YnExchangePY">
   <img src="https://static.pepy.tech/badge/YnExchangePY/month">
   <img src="https://static.pepy.tech/badge/YnExchangePY/week">
-  <img src="https://img.shields.io/badge/License-MIT-blue">
   <img src="https://img.shields.io/badge/Python-3.8_%7C_3.9_%7C_3.10_%7C_3.11-yellow">
 </div>
 
