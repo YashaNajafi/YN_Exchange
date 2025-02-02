@@ -5,7 +5,7 @@
   <img src="https://static.pepy.tech/badge/YnExchangePY">
   <img src="https://static.pepy.tech/badge/YnExchangePY/month">
   <img src="https://static.pepy.tech/badge/YnExchangePY/week">
-  <img src="https://img.shields.io/badge/Python-3.8_%7C_3.9_%7C_3.10_%7C_3.11-yellow">
+  <img src="https://img.shields.io/badge/Python-_3.10_%7C_3.11_%7C_3.12_%7C_3.13-yellow">
 </div>
 
 # Documentation
