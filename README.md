@@ -10,6 +10,8 @@
 
 # Documentation
 
+### <a href="https://yashanajafi.github.io/YN_Exchange/">Direct Documentation ( Only PC ) Website</a>
+
 ### Description:
 This Python library provides functionalities to get cryptoCurrency prices and perform conversions between Iranian Toman (IRT) and USD, for all supported cryptocurrencies.
 
