@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YN-Exchange Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --neon-purple: #bc13fe;
+            --neon-gold: #ffd700;
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--neon-purple);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .neon-purple {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+        }
+
+        .neon-gold {
+            color: var(--neon-gold);
+            text-shadow: 0 0 5px var(--neon-gold), 0 0 10px var(--neon-gold);
+        }
+
+        .neon-purple-border {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        .neon-gold-border {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 10px var(--neon-gold);
+        }
+
+        .neon-purple-bg {
+            background-color: rgba(188, 19, 254, 0.1);
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.3);
+        }
+
+        .neon-gold-bg {
+            background-color: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .glow-hover:hover {
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .code-block {
+            background: rgba(30, 30, 30, 0.8);
+            border-left: 3px solid var(--neon-purple);
+        }
+
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            border-bottom: 2px solid var(--neon-purple);
+            color: var(--neon-purple);
+        }
+
+        .sidebar-link {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            color: var(--neon-purple);
+            transform: translateX(5px);
+        }
+
+        .sidebar-link.active {
+            color: var(--neon-purple);
+            border-left: 3px solid var(--neon-purple);
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .code-block {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="gradient-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="border-b border-gray-800 sticky top-0 z-50 backdrop-blur-md bg-black bg-opacity-70">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-coins text-2xl neon-gold"></i>
+                <h1 class="text-2xl font-bold neon-purple">YN Exchange</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#installation" class="text-gray-300 hover:text-white glow-hover">Installation</a>
+                <a href="#features" class="text-gray-300 hover:text-white glow-hover">Features</a>
+                <a href="#usage" class="text-gray-300 hover:text-white glow-hover">Usage</a>
+                <a href="#donate" class="text-gray-300 hover:text-white glow-hover">Donate</a>
+                <a href="https://github.com/yashanajafi/YN_Exchange" target="_blank" class="px-4 py-2 bg-purple-900 hover:bg-purple-800 rounded-md text-white flex items-center space-x-2 neon-purple-bg">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 px-4">
+        <div class="container mx-auto text-center">
+            <div class="max-w-4xl mx-auto">
+                <div class="inline-block px-4 py-1 mb-4 rounded-full bg-purple-900 bg-opacity-30 neon-purple-bg">
+                    <span class="text-sm font-semibold neon-purple">v6.0.1</span>
+                </div>
+                <h1 class="hero-title text-5xl font-bold mb-6 text-white">
+                    <span class="neon-purple">YN Exchange</span> -
+                    <span class="neon-gold">Crypto & Financial Data</span>
+                </h1>
+                <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    A powerful Python library for cryptocurrency prices, metals, natural resources, and financial calculations with caching support.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <div class="px-4 py-2 rounded-md bg-gray-800 bg-opacity-50 flex items-center space-x-2">
+                        <i class="fas fa-download neon-gold"></i>
+                        <span>23K+ Downloads</span>
+                    </div>
+                    <div class="px-4 py-2 rounded-md bg-gray-800 bg-opacity-50 flex items-center space-x-2">
+                        <i class="fas fa-code-branch neon-purple"></i>
+                        <span>MIT License</span>
+                    </div>
+                    <div class="px-4 py-2 rounded-md bg-gray-800 bg-opacity-50 flex items-center space-x-2">
+                        <i class="fab fa-python neon-gold"></i>
+                        <span>Python 3.10+</span>
+                    </div>
+                </div>
+                <a href="#installation" class="inline-block px-8 py-3 rounded-md bg-purple-900 hover:bg-purple-800 text-white font-semibold neon-purple-bg glow-hover">
+                    Get Started
+                    <i class="fas fa-arrow-down ml-2"></i>
+                </a>
+                <div class="mt-16 scroll-indicator">
+                    <i class="fas fa-chevron-down text-2xl text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-12 flex flex-col lg:flex-row">
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-1/4 pr-0 lg:pr-8 mb-8 lg:mb-0 sticky top-24 h-fit">
+            <div class="bg-gray-900 bg-opacity-50 rounded-lg p-4 neon-purple-border">
+                <h3 class="text-xl font-bold mb-4 neon-purple border-b border-gray-700 pb-2">Documentation</h3>
+                <ul class="space-y-2">
+                    <li><a href="#description" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Description</a></li>
+                    <li><a href="#installation" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Installation</a></li>
+                    <li><a href="#features" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Key Features</a></li>
+                    <li>
+                        <a href="#crypto-section" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Crypto Section</a>
+                        <ul class="ml-4 mt-1 space-y-1">
+                            <li><a href="#get-crypto-price" class="sidebar-link block px-3 py-1 text-sm rounded hover:bg-gray-800">Get Crypto Price</a></li>
+                            <li><a href="#generate-crypto-charts" class="sidebar-link block px-3 py-1 text-sm rounded hover:bg-gray-800">Generate Charts</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#metal-section" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Metal Section</a></li>
+                    <li><a href="#natural-resources" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Natural Resources</a></li>
+                    <li><a href="#calculator" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Calculator</a></li>
+                    <li><a href="#exchange-api" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Exchange API</a></li>
+                    <li><a href="#cache" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Cache Section</a></li>
+                    <li><a href="#async-version" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Async Version</a></li>
+                    <li><a href="#donate" class="sidebar-link block px-3 py-2 rounded hover:bg-gray-800">Donation</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="w-full lg:w-3/4">
+            <!-- Description -->
+            <section id="description" class="mb-12">
+                <h2 class="text-3xl font-bold mb-6 neon-purple border-b border-gray-700 pb-2">Description</h2>
+                <p class="text-gray-300 mb-4">
+                    This Python library provides functionalities to get cryptocurrency prices and perform conversions between Iranian Toman (IRT) and USD, for all supported cryptocurrencies.
+                </p>
+                <p class="text-gray-300">
+                    It also includes features for tracking metals, natural resources, and provides a comprehensive calculator for financial conversions between different asset classes.
+                </p>
+            </section>
+
+            <!-- Installation -->
+            <section id="installation" class="mb-12">
+                <h2 class="text-3xl font-bold mb-6 neon-purple border-b border-gray-700 pb-2">Installation</h2>
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-3 neon-gold">Install the library using pip:</h3>
+                    <div class="code-block p-4 rounded-md mb-4">
+                        <pre><code class="text-green-400">pip install YnExchangePy</code></pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 neon-gold">Dependencies</h3>
+                    <p class="text-gray-300 mb-3">Required: <code class="bg-gray-800 px-2 py-1 rounded">kaleido</code> library for generating crypto tables (Images)</p>
+                    <div class="code-block p-4 rounded-md">
+                        <pre><code class="text-green-400">pip install kaleido</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section id="features" class="mb-12">
+                <h2 class="text-3xl font-bold mb-6 neon-purple border-b border-gray-700 pb-2">Key Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bolt neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Real-time Data</h3>
+                        </div>
+                        <p class="text-gray-300">Get real-time cryptocurrency price data from multiple exchanges.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-exchange-alt neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Currency Conversion</h3>
+                        </div>
+                        <p class="text-gray-300">Perform conversions between USD, IRT, and supported cryptocurrencies.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-chart-line neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Advanced Charts</h3>
+                        </div>
+                        <p class="text-gray-300">Generate professional cryptocurrency charts with technical indicators.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-gem neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Metals Tracking</h3>
+                        </div>
+                        <p class="text-gray-300">Get current prices for gold, silver, platinum, and other precious metals.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-gas-pump neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Natural Resources</h3>
+                        </div>
+                        <p class="text-gray-300">Track oil, gas, and other natural resource prices.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-calculator neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Smart Calculator</h3>
+                        </div>
+                        <p class="text-gray-300">Convert between different asset classes with the built-in calculator.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bolt neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Asynchronous Support</h3>
+                        </div>
+                        <p class="text-gray-300">Async version available for non-blocking data fetching.</p>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-database neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Caching System</h3>
+                        </div>
+                        <p class="text-gray-300">Built-in caching to reduce API calls and improve performance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Usage Sections -->
+            <section id="usage" class="mb-12">
+                <h2 class="text-3xl font-bold mb-6 neon-purple border-b border-gray-700 pb-2">Usage</h2>
+
+                <!-- Crypto Section -->
+                <div id="crypto-section" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Crypto Section</h3>
+
+                    <!-- Get Crypto Price -->
+                    <div id="get-crypto-price" class="mb-8">
+                        <h4 class="text-xl font-semibold mb-3 neon-purple">Get Crypto Price</h4>
+                        <div class="code-block p-4 rounded-md mb-4">
+                            <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import Exchange
+
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+ExchangeOBJ = Exchange.CryptoManager(Cache=True, Cache_Duration=300)  # Make object of CryptoManager
+
+# "Currency" Argument supported Currency is : USD, IRT (Default: USD)
+# "Grouping" It is set to "False" by default
+# Grouping (False) Output: 96000
+# Grouping (True) Output: 96,000
+BTC_Price = ExchangeOBJ.GetCryptoPrice(CryptoName="BTC", Currency="USD", Grouping=True)  # Get crypto price</code></pre>
+                        </div>
+                        <p class="text-gray-300">
+                            <span class="font-semibold neon-gold">Note:</span> If the Cache is active, the information is received and displayed from the Cache until the Cache_Duration expires, and after the Cache expires, the information is received from the server again and stored in the Cache.
+                        </p>
+                    </div>
+
+                    <!-- Generate Crypto Charts -->
+                    <div id="generate-crypto-charts" class="mb-8">
+                        <h4 class="text-xl font-semibold mb-3 neon-purple">Generate Crypto Charts</h4>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg">
+                                <img src="https://s8.uupload.ir/files/ton-usdt_chart_f0oo.jpg" alt="Crypto Chart Example" class="rounded-lg w-full">
+                            </div>
+                            <div class="bg-gray-900 bg-opacity-50 p-4 rounded-lg">
+                                <img src="https://s8.uupload.ir/files/ton-usdt_chart_7aod.jpg" alt="Crypto Chart Example" class="rounded-lg w-full">
+                            </div>
+                        </div>
+
+                        <div class="code-block p-4 rounded-md mb-4">
+                            <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import Exchange
+
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+# Cache not active for charts
+ExchangeOBJ = Exchange.CryptoManager(Cache=True, Cache_Duration=300)  # Make object of CryptoManager
+
+# Generate chart
+# For save chart as image definitely install kaleido
+# You can edit argument for edit your chart for example, if you set the histogram argument to "False", the histograms will be removed from the chart.
+ExchangeOBJ.GenerateCryptoChart(CryptoSymbol="TON/USDT")</code></pre>
+                        </div>
+
+                        <p class="text-gray-300 mb-4">
+                            <span class="font-semibold neon-gold">Note:</span> You can edit arguments to customize your chart. For example, if you set the histogram argument to "False", the histograms will be removed from the chart.
+                        </p>
+
+                        <div class="bg-gray-900 bg-opacity-70 p-4 rounded-lg neon-purple-border">
+                            <h5 class="font-semibold mb-2 neon-gold">Chart Arguments:</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">ImageSave: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">HTML_Save: bool = False</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Json_Save: bool = False</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">ChartTemplate: str = "Professional"</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Exchange: str = "binance"</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">CryptoSymbol: str = "BTC/USDT"</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Limit: int = 100</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Timeframe = '1d'</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">IchimokuLine: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">IchimokuCloud: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Candlesticks: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Chikou: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Tenkan: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Kijun: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">MACD_Line: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">SignalLine: bool = True</code></div>
+                                <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Histogram: bool = True</code></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metal Section -->
+                <div id="metal-section" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Metal Section</h3>
+
+                    <div class="code-block p-4 rounded-md mb-4">
+                        <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import Exchange
+
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+MetalsOBJ = Exchange.MetalManager(Cache=True, Cache_Duration=300)  # Make object of MetalManager
+
+GoldPrice = MetalsOBJ.GetGoldPrice(Carat=24, Grouping=True)</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-70 p-4 rounded-lg neon-purple-border">
+                        <h5 class="font-semibold mb-2 neon-gold">Functionality:</h5>
+                        <div class="space-y-2">
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetPlatinumPrice(Grouping: bool = "False")</code> - Ounce per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetSilverPrice(Grouping: bool = "False")</code> - Ounce per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetPalladiumPrice(Grouping: bool = "False")</code> - Ounce per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetTinPrice(Grouping: bool = "False")</code> - Tonne per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetZincPrice(Grouping: bool = "False")</code> - Tonne per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetNickelPrice(Grouping: bool = "False")</code> - Tonne per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetLeadPrice(Grouping: bool = "False")</code> - Tonne per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetCopperPrice(Grouping: bool = "False")</code> - Pound per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetAluminiumPrice(Grouping: bool = "False")</code> - Tonne per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetGoldPrice(Grouping: bool = "False", carat: int = 18, weight: str = "gram")</code> - Weight: [kilo,gram,ounce] and Only IRT Price</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Natural Resources -->
+                <div id="natural-resources" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Natural Resources Section</h3>
+
+                    <div class="code-block p-4 rounded-md mb-4">
+                        <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import Exchange
+
+# "Cache" Argument It is set to "False" by default
+# "Cache_Duration" it is set to per second
+NaturalOBJ = Exchange.NaturalResourcesManager(Cache=True, Cache_Duration=300)  # Make object of NaturalResourcesManager
+
+BrentOil = NaturalOBJ.GetBrentOil(Grouping=True)
+OilWTI = NaturalOBJ.GetCrudeOilWTI(Grouping=True)
+NaturalGas = NaturalOBJ.GetNaturalGas(Grouping=True)</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-70 p-4 rounded-lg neon-purple-border">
+                        <h5 class="font-semibold mb-2 neon-gold">Functionality:</h5>
+                        <div class="space-y-2">
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetCrudeOilWTI</code> - Barrel per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetBrentOil</code> - Barrel per USD</div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GetNaturalGas</code> - Mmbtu per USD</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator -->
+                <div id="calculator" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Calculator Section</h3>
+                    <p class="text-gray-300 mb-4">You can use these functions in <code class="bg-gray-800 px-2 py-1 rounded">Calculator()</code> class</p>
+
+                    <div class="code-block p-4 rounded-md mb-4">
+                        <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import Exchange
+
+CalculatorOBJ = Exchange.Calculator()  # Make object of Calculator
+
+Result = CalculatorOBJ.CryptoValue2Currency(CryptoName="BTC", Currency="USD", Grouping=True)</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-70 p-4 rounded-lg neon-purple-border">
+                        <h5 class="font-semibold mb-2 neon-gold">Functionality:</h5>
+                        <div class="space-y-2">
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">CryptoValue2Currency(Value: int, CryptoName: str = "BTC", Currency: str = "USD", Grouping: bool = False)</code></div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Currency2CryptoValue(Value: int, CryptoName: str = "BTC", Currency: str = "USD", Grouping: bool = False)</code></div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">CryptoValue2CryptoValue(CryptoValue: int, CryptoName1: str = "BTC", CryptoName2: str = "ETH", Grouping: bool = False)</code></div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">CryptoValue2GoldWeight(GoldCarat: int = 18, GoldWeight: str = "gram", CryptoName: str = "BTC")</code></div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GoldWeight2CryptoValue(GoldCarat: int = 18, GoldWeight: str = "gram", GoldValue: int = 1, CryptoName: str = "BTC")</code></div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">GoldWeight2Currency(GoldCarat: int = 18, GoldWeight: str = "gram", GoldValue: int = 1, Currency: str = "USD")</code></div>
+                            <div><code class="bg-gray-800 px-2 py-1 rounded text-sm">Currency2GoldWeight(GoldCarat: int = 18, GoldWeight: str = "gram", CurrencyValue: int = 5000000)</code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exchange API -->
+                <div id="exchange-api" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Exchanges API Section</h3>
+                    <p class="text-gray-300 mb-4">A class to receive digital currency information from APIs of world's most prestigious exchanges</p>
+
+                    <div class="code-block p-4 rounded-md mb-4">
+                        <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import Exchange
+
+ExchangeOBJ = Exchange.ExchangeAPI(Exchange="binance")  # Make object of ExchangeAPI
+
+BTC = ExchangeOBJ.GetCryptoData(CryptoSymbol="BTC/USDT")</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-70 p-4 rounded-lg neon-purple-border">
+                        <h5 class="font-semibold mb-2 neon-gold">Output:</h5>
+                        <div class="code-block p-4 rounded-md">
+                            <pre><code class="text-gray-300">{
+    'symbol': 'BTC/USDT',
+    'timestamp': 1736598300337,
+    'datetime': '2025-01-11T12:25:00.337Z',
+    'high': 95836.0,
+    'low': 92206.02,
+    'bid': 94613.99,
+    'bidVolume': 5.67459,
+    'ask': 94614.0,
+    'askVolume': 0.35323,
+    'vwap': 94125.84165815,
+    'open': 94805.6,
+    'close': 94614.0,
+    'last': 94614.0,
+    'previousClose': 94805.6,
+    'change': -191.6,
+    'percentage': -0.202,
+    'average': 94709.8,
+    'baseVolume': 25125.20063,
+    'quoteVolume': 2364930656.128506,
+    'markPrice': None,
+    'indexPrice': None,
+    'info': {
+        'symbol': 'BTCUSDT',
+        'priceChange': '-191.60000000',
+        'priceChangePercent': '-0.202',
+        'weightedAvgPrice': '94125.84165815',
+        'prevClosePrice': '94805.60000000',
+        'lastPrice': '94614.00000000',
+        'lastQty': '0.03192000',
+        'bidPrice': '94613.99000000',
+        'bidQty': '5.67459000',
+        'askPrice': '94614.00000000',
+        'askQty': '0.35323000',
+        'openPrice': '94805.60000000',
+        'highPrice': '95836.00000000',
+        'lowPrice': '92206.02000000',
+        'volume': '25125.20063000',
+        'quoteVolume': '2364930656.12850630',
+        'openTime': '1736511900337',
+        'closeTime': '1736598300337',
+        'firstId': '4392795366',
+        'lastId': '4396948127',
+        'count': '4152762'
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cache Section -->
+                <div id="cache" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Cache Section</h3>
+                    <p class="text-gray-300">
+                        All the classes in the library have the <code class="bg-gray-800 px-2 py-1 rounded">clear_cache</code> function, which you can use to clear the cache of that class.
+                    </p>
+                    <p class="text-gray-300 mt-2">
+                        Caches are saved as json files on your computer.
+                    </p>
+                </div>
+
+                <!-- Async Version -->
+                <div id="async-version" class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 neon-gold border-b border-gray-700 pb-2">Async Version</h3>
+                    <p class="text-gray-300 mb-2">
+                        For usage Async version you must import <code class="bg-gray-800 px-2 py-1 rounded">AsyncExchange</code> module.
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        And for usage you can use <code class="bg-gray-800 px-2 py-1 rounded">asyncio.run()</code> function.
+                    </p>
+
+                    <div class="code-block p-4 rounded-md mb-4">
+                        <pre><code class="text-green-400"># Import to your project:
+from YN_Exchange import AsyncExchange
+import asyncio
+
+# The use of all async functions is the same as the main functions:
+ExchangeOBJ = AsyncExchange.AsyncCryptoManager(Cache=True, Cache_Duration=300)
+
+CryptoPrice = asyncio.run(ExchangeOBJ.GetCryptoPrice(CryptoName="BTC", Currency="USD", Grouping=True))</code></pre>
+                    </div>
+
+                    <p class="text-gray-300">
+                        To use functions, you can easily use them by adding the word "async" to the first of the main functions.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Donation -->
+            <section id="donate" class="mb-12">
+                <h2 class="text-3xl font-bold mb-6 neon-purple border-b border-gray-700 pb-2">Donation</h2>
+                <p class="text-gray-300 mb-6">
+                    If you find this library useful, consider supporting its development with a donation.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-900 bg-opacity-50 p-6 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-bitcoin text-2xl neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Bitcoin (BTC)</h3>
+                        </div>
+                        <div class="code-block p-4 rounded-md">
+                            <code class="text-gray-300 break-all">bc1qpgzy8hpklpp0zwan5ha4lfzavvtjf286w0tlzc</code>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-6 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-ethereum text-2xl neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">Ethereum (ETH)</h3>
+                        </div>
+                        <div class="code-block p-4 rounded-md">
+                            <code class="text-gray-300 break-all">0xE95FAEc8B847F18B3bC5dc1bB8256fb376d2e459</code>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-6 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-wallet text-2xl neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">TON, USDT (Tonkeeper)</h3>
+                        </div>
+                        <div class="code-block p-4 rounded-md">
+                            <code class="text-gray-300 break-all">UQCZgyJ4XB7c1GMnLgefqcc-zOA98hyOlMLZpO0EsCNxBq-e</code>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 bg-opacity-50 p-6 rounded-lg neon-purple-border">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-tumblr text-2xl neon-gold mr-3"></i>
+                            <h3 class="text-xl font-semibold">TRON (TRX)</h3>
+                        </div>
+                        <div class="code-block p-4 rounded-md">
+                            <code class="text-gray-300 break-all">TG8MpYtysGngjK7tPdCATLqLJKwm5vbfYi</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-70 border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-coins text-2xl neon-gold"></i>
+                        <h2 class="text-xl font-bold neon-purple">YN Exchange</h2>
+                    </div>
+                    <p class="text-gray-400 mt-2">MIT Licensed | Python 3.10+</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white glow-hover"><i class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white glow-hover"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white glow-hover"><i class="fab fa-telegram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white glow-hover"><i class="fab fa-discord text-xl"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-500 text-sm">
+                &copy; 2023 YN_Exchange. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Random size between 2px and 5px
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+
+                // Random animation duration
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Highlight active sidebar link
+        function highlightActiveLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+
+                    if (pageYOffset >= sectionTop - 300) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        function smoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            highlightActiveLink();
+            smoothScrolling();
+        });
+    </script>
+</body>
+</html>
