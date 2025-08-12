@@ -70,7 +70,7 @@ BTC_Price = ExchangeOBJ.GetCryptoPrice(CryptoName = "BTC",Currency = "USD",Group
 
 - <b>Generate Crypto Charts :</b>
 
-### Examples :
+### Examples ( Demo ) :
 
 <img src="https://s8.uupload.ir/files/ton-usdt_chart_f0oo.jpg" width="300px"> <img src="https://s8.uupload.ir/files/ton-usdt_chart_7aod.jpg" width="500px">
 
